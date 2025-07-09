@@ -40,7 +40,6 @@ const userSchema = new mongoose.Schema({
 ) 
 
 
-export const User = mongoose.model("User", userSchema)
 
 
 //hashing password
@@ -49,7 +48,7 @@ export const User = mongoose.model("User", userSchema)
 
 userSchema.pre("save", async function (next) {
     if(!this.isModified("password")) return next()
-
+        
         try {
             const salt = await bcrypt.genSalt(10)
             this.password = await bcrypt.hash(this.password, salt)
@@ -57,11 +56,14 @@ userSchema.pre("save", async function (next) {
         } catch (error) {
             next(error)
         }      
-})
-
-//to compare the password entered by user with the one saved in db.
-
-userSchema.methods.comparePassword = async function (password) {
-    return bcrypt.compare(password, this.password)
-}
-
+    })
+    
+    //to compare the password entered by user with the one saved in db.
+    
+    userSchema.methods.comparePassword = async function (password) {
+        return bcrypt.compare(password, this.password)
+    }
+    
+    
+    
+    export const User = mongoose.model("User", userSchema)

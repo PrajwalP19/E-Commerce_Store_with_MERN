@@ -9,6 +9,8 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 8000
 
+app.use(express.json())   //allows to parse the body of req
+
 app.use("/api/v1/auth", authRoutes)
 
 app.listen(5000, () => {
