@@ -55,8 +55,8 @@ export const createProduct = async (req, res) => {
         const { name, description, price, image, category } = req.body;
 
         // Basic validation
-        if (!name || !description || !price || !category) {
-            return res.status(400).json({ message: "All fields except image are required." });
+        if (!name || !description || !price || !category || !image) {
+            return res.status(400).json({ message: "All fields are required." });
         }
 
         let cloudinaryResponse = null;
@@ -218,7 +218,7 @@ async function updateFeaturedProductCache() {
         await redis.setEx("featured_products", 3600, JSON.stringify(featuredProducts));
 
         console.log("Redis cache updated: featured_products");
-        
+
     } catch (error) {
         console.log("Error in updating cache function:", error.message);
     }
