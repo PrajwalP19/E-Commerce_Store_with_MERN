@@ -123,7 +123,8 @@ export const refreshToken = async (req, res) => {
 
 export const getProfile = async (req, res) => {
 	try {
-		res.json(req.user);
+		console.log("✅ req.user from token:", req.user); // ADD THIS
+		res.json(req.user); // this includes `role` now
 	} catch (error) {
 		res.status(500).json({ message: "Server error", error: error.message });
 	}

@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast"
 import { useUserStore } from "./stores/useUserStore"
 import { useEffect } from "react"
 import LoadingSpinner from "./components/LoadingSpinner"
+import AdminPage from "./pages/AdminPage"
 
 
 
@@ -17,6 +18,8 @@ function App() {
 	useEffect(() => {
 		checkAuth();
 	}, [checkAuth]);
+
+  console.log("User from Zustand:", user);
 
 	// useEffect(() => {
 	// 	if (!user) return;
@@ -41,13 +44,14 @@ function App() {
       <Route path="/" element={<HomePage />}/>
       <Route path="/signup" element={!user ? <SignUpPage />: <HomePage />}/>
       <Route path="/login" element={!user ? <LoginPage /> : <HomePage />}/>
-      <Route path="/" element={<HomePage />}/>
+      <Route path="/secret-dashboard" element={user?.role === "admin" ? <AdminPage /> : <LoginPage />}/>   
     </Routes>
     </div>
     <Toaster />
    </div>
   )
 }
+
 
 export default App
 

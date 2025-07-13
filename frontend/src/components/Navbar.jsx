@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 // import { useCartStore } from "../stores/useCartStore";
 
+
 const Navbar = () => {
   const { user, logout } = useUserStore();
-  const isAdmin = user?.role === "customer";
+  const isAdmin = user?.role === "admin";
   // const { cart } = useCartStore()
   let cart = true
 
