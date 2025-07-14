@@ -23,7 +23,7 @@ app.use(cors({
   credentials: true               
 }));
 
-app.use(express.json())   //allows to parse the body of req
+app.use(express.json({limit: "10mb"}))   //allows to parse the body of req
 app.use(cookieParser())   
 
 
