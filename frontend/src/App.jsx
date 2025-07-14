@@ -8,6 +8,7 @@ import { useUserStore } from "./stores/useUserStore"
 import { useEffect } from "react"
 import LoadingSpinner from "./components/LoadingSpinner"
 import AdminPage from "./pages/AdminPage"
+import CategoryPage from "./pages/CategoryPage"
 
 
 
@@ -45,6 +46,7 @@ function App() {
       <Route path="/signup" element={!user ? <SignUpPage />: <HomePage />}/>
       <Route path="/login" element={!user ? <LoginPage /> : <HomePage />}/>
       <Route path="/secret-dashboard" element={user?.role === "admin" ? <AdminPage /> : <LoginPage />}/>   
+      <Route path="/category/:category" element={<CategoryPage />}/>   
     </Routes>
     </div>
     <Toaster />
