@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import HomePage from "./pages/HomePage"
 import SignUpPage from "./pages/SignUpPage"
 import LoginPage from "./pages/LoginPage"
@@ -9,24 +9,26 @@ import { useEffect } from "react"
 import LoadingSpinner from "./components/LoadingSpinner"
 import AdminPage from "./pages/AdminPage"
 import CategoryPage from "./pages/CategoryPage"
+import CartPage from "./pages/CartPage"
+import { useCartStore } from "./stores/useCartStore"
 
 
 
 function App() {
  
   	const { user, checkAuth, checkingAuth } = useUserStore();
-	// const { getCartItems } = useCartStore();
+	const { getCartItems } = useCartStore()
 	useEffect(() => {
 		checkAuth();
 	}, [checkAuth]);
 
   console.log("User from Zustand:", user);
 
-	// useEffect(() => {
-	// 	if (!user) return;
+	useEffect(() => {
+		if (!user) return;
 
-	// 	getCartItems();
-	// }, [getCartItems, user]);
+		getCartItems();
+	}, [getCartItems, user]);
 
 	if (checkingAuth) return <LoadingSpinner />;
 
@@ -47,6 +49,7 @@ function App() {
       <Route path="/login" element={!user ? <LoginPage /> : <HomePage />}/>
       <Route path="/secret-dashboard" element={user?.role === "admin" ? <AdminPage /> : <LoginPage />}/>   
       <Route path="/category/:category" element={<CategoryPage />}/>   
+      <Route path="/cart" element={user ?  <CartPage /> : <Navigate  to="/login"/>}/>   
     </Routes>
     </div>
     <Toaster />
